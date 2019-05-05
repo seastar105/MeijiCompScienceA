@@ -1,0 +1,5 @@
+if ( -e ~/.cshrc ) then
+    source ~/.cshrc
+endif
+alias  cc /home/re00133/progtice/cc
+alias gcc /home/re00133/progtice/gcc
