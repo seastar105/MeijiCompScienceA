@@ -3,17 +3,11 @@
 #include<stdlib.h>
 #include<string.h>
 
-/******************************************************************************************************************
-* Usage																											  *
-*																												  *
-* ./week1_ass4 [Input image name] [Output image name] [Starting X value] [Starting Y value] [Y offset] [X offset] *
-* Please input all arguments, if not it doesn't work															  *
-* Argument Explanataion(did not implement error handling, so please use it as below) 							  *
-* Input and Output File name : Please input JPEG filename											 	 		  *
-* If X and Y values are invalid(ex overflow), program terminates with error message								  *
-* this program applies tone curve to selected area in Input image then outputs image file						  *
-* tone curve here is from lecture note.																			  *
-******************************************************************************************************************/
+/*************************************************
+ * make own tone curve, except identity function *
+ * I'll use funtion which is similar to example  *
+ * function in lecture note.                     *
+ * **********************************************/
 
 // this curve makes image lighter
 // 4 times value under 64 and change values over 63 into 255
@@ -26,19 +20,50 @@ int tonecurve1(int x) {
 	return  y;
 }
 
+// curve2 takes values from 192 to 255 then discard other values to 0
+int tonecurve2(int x) {
+	int y;
+	if(x < 192)
+		y = 0;
+	else
+		y = (x-192)*4;
 
+	return y;
+}
+
+// curve3 
+int tonecurve3(int x) {
+	int y;
+	if(x<64)
+		y = x * 4;
+	else if (x < 192)
+		y = (x-192) * (-2);
+	else
+		y = (x-192) * 4;
+	
+	return y;
+}
+
+// curve4
+int tonecurve4(int x) {
+	double y;
+	y = (x-127.5) * (x - 127.5) * 255 / (127.5 * 127.5);
+	if((int)y > 255) return 255;
+	else if((int)y < 0) return 0;
+	else return (int)y;
+}
 int rangecheck(int start, int offset, int limit) {
 	if (start < 0 || start >= limit) return 0;
 	if (start + offset < 0 || start+offset >= limit) return 0;
 	return 1;
 }
-
-
 int main(const int argc, const char *argv[]) {
 	FILE *out, *in;
 	gdImagePtr im,im_new;
 	int width, height, i, j, color, r,g,b,pixel;
 	int modX,modY,modW,modH;
+	int f1, f2;
+	int (*curves[4])(int) = { tonecurve1, tonecurve2, tonecurve3, tonecurve4 };
 	if(argv[1] == NULL || argv[2]==NULL || !strcmp(argv[1],argv[2])) {
 		printf("argument error\n");
 		exit(-1);
@@ -51,7 +76,7 @@ int main(const int argc, const char *argv[]) {
 		printf("file open error for %s\n",argv[2]);
 		exit(-1);
 	}
-	if(argc < 7) {
+	if(argc < 9) {
 		printf("need more argument\n");
 		exit(-1);
 	}
@@ -70,14 +95,35 @@ int main(const int argc, const char *argv[]) {
 		printf("range error\n");
 		exit(-1);
 	}
+
+	// f1 for selected area, f2 for left area
+	f1 = atoi(argv[7]);
+	f2 = atoi(argv[8]);
+
+	if(f1 < 0 || f1 > 3 || f2 < 0 || f2 > 3) {
+		printf("curve range error\n");
+		exit(-1);
+	}
+	// apply tone curve to left area
+	for(i=0;i<height;i++) {
+		for(j=0;j<width;j++) {
+			pixel = gdImageGetPixel(im,j,i);
+			r = curves[f2](gdImageRed(im,pixel));
+			g = curves[f2](gdImageGreen(im,pixel));
+			b = curves[f2](gdImageBlue(im,pixel));
+			color = gdImageColorExact(im_new,r,g,b);
+			gdImageSetPixel(im_new,j,i,color);
+		}
+	}
+	// apply tone curve to selected area
 	for(i=modY;i<modY + modH;i++) {
 		for(j=modX;j<modX + modW;j++) {
 			pixel = gdImageGetPixel(im,j,i);
 
 			// get filtered value by tone curve above
-			r = tonecurve1(gdImageRed(im,pixel));
-			g = tonecurve1(gdImageGreen(im,pixel));
-			b = tonecurve1(gdImageBlue(im,pixel));
+			r = curves[f1](gdImageRed(im,pixel));
+			g = curves[f1](gdImageGreen(im,pixel));
+			b = curves[f1](gdImageBlue(im,pixel));
 
 			color = gdImageColorExact(im_new,r,g,b);
 
