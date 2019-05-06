@@ -4,6 +4,14 @@
 #include<string.h>
 #include<math.h>
 
+void direct_transformation(int *x, int *y, double m) {
+
+}
+
+void inverse_transformation(int *x, int *y, double m) {
+
+}
+
 int valid(int x, int y, int width, int height) {
 	if( x<0 || x >= width) return 0;
 	else if ( y<0 || y >= height) return 0;
@@ -16,6 +24,7 @@ int main(const int argc, const char *argv[]) {
     int width, height, i, j, pixel, color,r,g,b;
 	int new_width, new_height;
 	int x,y,xd,yd;
+	int x_offset, y_offset;
 	double slope_a, slope_b, m;
 
     if(argv[1]==NULL||argv[2]==NULL||!strcmp(argv[1],argv[2])){
@@ -38,6 +47,7 @@ int main(const int argc, const char *argv[]) {
 	}
 	slope_a = atof(argv[3]);
 	slope_b = atof(argv[4]);
+	m = -slope_a / slope_b;
 	im = gdImageCreateFromJpeg(in);
 
 	width = gdImageSX(im);
