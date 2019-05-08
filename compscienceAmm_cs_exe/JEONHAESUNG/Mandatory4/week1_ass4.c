@@ -25,6 +25,37 @@ int tonecurve1(int x) {
 		y = 255;
 	return  y;
 }
+int tonecurve2(int x) {
+    int y;
+    if(x < 192)
+        y = 0;
+    else
+        y = (x-192)*4;
+
+    return y;
+}
+
+// curve3 
+int tonecurve3(int x) {
+    int y;
+    if(x<64)
+        y = x * 4;
+    else if (x < 192)
+        y = (x-192) * (-2);
+    else
+        y = (x-192) * 4;
+
+    return y;
+}
+
+// curve4
+int tonecurve4(int x) {
+    double y;
+    y = (x-127.5) * (x - 127.5) * 255 / (127.5 * 127.5);
+    if((int)y > 255) return 255;
+    else if((int)y < 0) return 0;
+    else return (int)y;
+}
 
 
 int rangecheck(int start, int offset, int limit) {
@@ -39,6 +70,7 @@ int main(const int argc, const char *argv[]) {
 	gdImagePtr im,im_new;
 	int width, height, i, j, color, r,g,b,pixel;
 	int modX,modY,modW,modH;
+	int (*curves[4])(int) = { tonecurve1, tonecurve2, tonecurve3, tonecurve4 };
 	if(argv[1] == NULL || argv[2]==NULL || !strcmp(argv[1],argv[2])) {
 		printf("argument error\n");
 		exit(-1);

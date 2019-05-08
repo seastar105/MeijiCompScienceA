@@ -3,11 +3,12 @@
 #include<stdlib.h>
 #include<string.h>
 
-/*************************************************
- * make own tone curve, except identity function *
- * I'll use funtion which is similar to example  *
- * function in lecture note.                     *
- * **********************************************/
+/*
+	Usage
+	./week1_add1 [Input image name] [Output image name] [Starting X value] [Starting Y value] [Y offset] [X offset] [Selected area Curve #] [Left area Curve #]
+	
+	Please Choose Curve number 0~3
+*/
 
 // this curve makes image lighter
 // 4 times value under 64 and change values over 63 into 255
