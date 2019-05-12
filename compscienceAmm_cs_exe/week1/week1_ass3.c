@@ -18,6 +18,15 @@ int tonecurve(int x) {
 	return  y;
 }
 
+int tonecurve1(int x) {
+	int y;
+	if(x < 128)
+		y = 2 * x;
+	else 
+		y = 255;
+	return y;
+}
+
 int main(const int argc, const char *argv[]) {
 	FILE *out, *in;
 	gdImagePtr im,im_new;

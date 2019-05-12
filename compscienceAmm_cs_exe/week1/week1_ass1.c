@@ -35,8 +35,8 @@ int main(const int argc, const char *argv[]) {
 
 	// write new image into im_new
 	// (i,j) to (j,i)
-	for (i=0;i<width;i++) {
-		for(j=0;j<height;j++) {
+	for (j=0;j<height;j++) {
+		for(i=0;i<width;i++) {
 			// get pixel from input
 			pixel = gdImageGetPixel(im,i,j);
 
@@ -46,7 +46,7 @@ int main(const int argc, const char *argv[]) {
 
 			color = gdImageColorExact(im_new,r,g,b);
 
-			gdImageSetPixel(im_new,j,i,color);
+			gdImageSetPixel(im_new,j,width-1-i,color);
 		}
 	}
 	gdImageJpeg(im_new,out,-1);
