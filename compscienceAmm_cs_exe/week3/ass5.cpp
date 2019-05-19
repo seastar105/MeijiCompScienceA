@@ -12,7 +12,7 @@ int main(int argc, const char **argv){
   VideoCapture video(argv[1]);
   bool isOpened = video.isOpened();
   if(!isOpened) {
-    cout << "Please Set Appropriate USB" << endl;
+    cout << "Please Set Appropriate Device" << endl;
     exit(-1);
   }
   char buf[256] = "JHS";
