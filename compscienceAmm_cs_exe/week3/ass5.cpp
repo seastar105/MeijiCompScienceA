@@ -20,15 +20,12 @@ int main(int argc, const char **argv){
   Mat frame;
   while(1) {
     video >> frame;
-    Mat dst(frame.rows,frame.cols,frame.type());
-    Mat mat=(Mat_<float>(2,3)<<-1,0,frame.cols,0,1,0);
     //  GaussianBlur(frame,dst,Size(5,5),1.5,1.5);
-    warpAffine(frame,dst,mat,dst.size());
-    putText(dst,buf,Point(100,150),FONT_HERSHEY_SIMPLEX,4,Scalar(0,0,0),3,CV_AA);
+    putText(frame,buf,Point(100,150),FONT_HERSHEY_SIMPLEX,4,Scalar(0,0,0),3,CV_AA);
     if(waitKey(30) == 'q')
       break;
     
-    imshow("test",dst);
+    imshow("test",frame);
   }
   return 0;
 }

@@ -4,59 +4,47 @@
 #include<cstdio>
 #include<iostream>
 #include<chrono>
-#include<gd.h>
-
+#define EPOCH 100
 using namespace std;
 using namespace cv;
 
 int main(int argc, const char**argv) {
-  gdImagePtr im;
-  int r,g,b,x,y,pixel,width,height;
-  FILE *out,*in;
+  int x,y;
+  int height, width;
+  FILE *in;
   double sum;
   if((in=fopen(argv[1],"r")) == NULL) {
     cout << "file open error " << argv[1] << endl;
     exit(-1);
   }
-  im = gdImageCreateFromJpeg(in);
-  width = gdImageSX(im);
-  height = gdImageSY(im);
-
-  Mat m(height,width,CV_8UC3);
-  Vec3b bgr;
+  fclose(in);
+  Mat m = imread(argv[1],CV_LOAD_IMAGE_COLOR);
   sum = 0;
-  for(int i=0;i<5;i++) {
+  height = m.rows;
+  width = m.cols;
+  for(int i=0;i<EPOCH;i++) {
 	  chrono::system_clock::time_point start = chrono::system_clock::now();
 	  for(y=0;y<height;y++) {
 		for(x=0;x<width;x++) {
-		  pixel = gdImageGetPixel(im,x,y);
-		  bgr[2] = gdImageRed(im,pixel);
-		  bgr[1] = gdImageGreen(im,pixel);
-		  bgr[0] = gdImageBlue(im,pixel);
-		  m.at<Vec3b>(y,x) = bgr;
+		  Vec3b bgr = m.at<Vec3b>(y,x);
 		}
 	  }
 	  chrono::duration<double> sec = chrono::system_clock::now() - start;
 	  sum += sec.count();
   }
-  printf("%lf sec for at\n",sum/5);
+  printf("%lf sec when using at\n",sum/EPOCH);
   sum = 0;
-  for(int i=0;i<5;i++) {
+  for(int i=0;i<EPOCH;i++) {
 	  chrono::system_clock::time_point start = chrono::system_clock::now();
 	  for(y=0;y<height;y++) {
 		Vec3b *p = m.ptr<Vec3b>(y);
 		for(x=0;x<width;x++) {
-		  pixel = gdImageGetPixel(im,x,y);
-		  bgr[2] = gdImageRed(im,pixel);
-		  bgr[1] = gdImageGreen(im,pixel);
-		  bgr[0] = gdImageBlue(im,pixel);
-		  p[x] = bgr;
+		  Vec3b bgr = p[x];
 		}
 	  }
 	  chrono::duration<double> sec = chrono::system_clock::now() - start;
 	  sum += sec.count();
   }
-  printf("%lf sec for pointer\n",sum/5);
-  imwrite(argv[2],m);
+  printf("%lf sec when using pointer\n",sum/EPOCH);
   return 0;
 }
