@@ -1,36 +1,30 @@
-#include<opencv2/core/core.hpp>
-#include<opencv2/imgproc/imgproc.hpp>
-#include<opencv2/highgui/highgui.hpp>
-#include<cstdio>
-#include<iostream>
-#include<gd.h>
+#include "myobject.h"
 
-using namespace std;
-using namespace cv;
+int main(int argc, char **argv) {
+	QApplication app(argc,argv);
+	QWidget w;
+	QHBoxLayout l1,l2;
+	QVBoxLayout v;
+	QPushButton button1("Hello World!");
+	QPushButton button2("Bye World!");
+	QPushButton button3("Push");
+	QPushButton button4("Quit");
+	MyObject m0,m1;
 
-int main(int argc, const char**argv) {
-  gdImagePtr im;
-  int r,g,b,x,y,pixel,width,height;
-  FILE *out,*in;
-  if((in=fopen(argv[1],"r")) == NULL) {
-    cout << "file open error " << argv[1] << endl;
-    exit(-1);
-  }
-  im = gdImageCreateFromJpeg(in);
-  width = gdImageSX(im);
-  height = gdImageSY(im);
+	l1.addWidget(&button1);
+	l1.addWidget(&button2);
+	l2.addWidget(&button3);
+	l2.addWidget(&button4);
+	QObject::connect(&button1,SIGNAL(clicked()),&m0,SLOT(my_print()));
+	QObject::connect(&button2,SIGNAL(clicked()),&m1,SLOT(my_print2()));
+	QObject::connect(&button3,SIGNAL(clicked()),&m1,SLOT(my_print3()));
+	QObject::connect(&button4,SIGNAL(clicked()),&m1,SLOT(quit()));
 
-  Mat m(height,width,CV_8UC3);
-  Vec3b bgr;
-  for(y=0;y<height;y++) {
-    for(x=0;x<width;x++) {
-      pixel = gdImageGetPixel(im,x,y);
-      bgr[2] = gdImageRed(im,pixel);
-      bgr[1] = gdImageGreen(im,pixel);
-      bgr[0] = gdImageBlue(im,pixel);
-      m.at<Vec3b>(y,x) = bgr;
-    }
-  }
-  imwrite(argv[2],m);
-  return 0;
+
+	v.addLayout(&l1);
+	v.addLayout(&l2);
+	w.setLayout(&v);
+	w.show();
+
+	return app.exec();
 }
