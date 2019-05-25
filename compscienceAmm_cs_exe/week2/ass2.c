@@ -5,6 +5,31 @@
 
 #define BUF_MAX 256
 
+void makeGrayScale(gdImagePtr im) {
+    int i, j, width, height, r, g, b, L, pixel, color;
+    double temp;
+    width = gdImageSX(im);
+    height = gdImageSY(im);
+    for(i=0;i<width;i++) {
+        for(j=0;j<height;j++) {
+            pixel = gdImageGetPixel(im,i,j);
+
+            r = gdImageRed(im,pixel);
+            g = gdImageGreen(im,pixel);
+            b = gdImageBlue(im,pixel);
+
+            temp = 0.299 * r + 0.587 * g + 0.114 * b;
+            L = (int)temp;
+
+            color = gdImageColorExact(im,L,L,L);
+
+            gdImageSetPixel(im,i,j,color);
+        }
+    }
+
+}
+
+
 int main(const int argc, const char *argv[]) {
     FILE *out, *in, *fin;
     gdImagePtr im,im_pad,im_new;
@@ -67,7 +92,7 @@ int main(const int argc, const char *argv[]) {
 	im_pad = gdImageCreateTrueColor(width+2*w,height+2*w);
 	gdImageCopy(im_pad,im,w,w,0,0,width,height);
 	im_new = gdImageCreateTrueColor(width,height);
-
+	makeGrayScale(im_pad);
 	for(j=w;j<height+w;j++) {
 		for(i=w;i<width+w;i++) {
 			sum_r = sum_g = sum_b = 0.0;

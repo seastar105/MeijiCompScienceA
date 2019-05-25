@@ -22,25 +22,44 @@ static const uint qt_meta_data_MyWindow[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-       0,    0, // methods
+       6,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
        0,       // signalCount
 
+ // slots: signature, parameters, type, tag, flags
+      10,    9,    9,    9, 0x0a,
+      18,    9,    9,    9, 0x08,
+      29,    9,    9,    9, 0x08,
+      36,    9,    9,    9, 0x08,
+      45,    9,    9,    9, 0x08,
+      54,    9,    9,    9, 0x08,
+
        0        // eod
 };
 
 static const char qt_meta_stringdata_MyWindow[] = {
-    "MyWindow\0"
+    "MyWindow\0\0start()\0Gaussian()\0Edge()\0"
+    "Mirror()\0Normal()\0drawVideo()\0"
 };
 
 void MyWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
-    Q_UNUSED(_o);
-    Q_UNUSED(_id);
-    Q_UNUSED(_c);
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        Q_ASSERT(staticMetaObject.cast(_o));
+        MyWindow *_t = static_cast<MyWindow *>(_o);
+        switch (_id) {
+        case 0: _t->start(); break;
+        case 1: _t->Gaussian(); break;
+        case 2: _t->Edge(); break;
+        case 3: _t->Mirror(); break;
+        case 4: _t->Normal(); break;
+        case 5: _t->drawVideo(); break;
+        default: ;
+        }
+    }
     Q_UNUSED(_a);
 }
 
@@ -75,6 +94,11 @@ int MyWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     _id = QWidget::qt_metacall(_c, _id, _a);
     if (_id < 0)
         return _id;
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        if (_id < 6)
+            qt_static_metacall(this, _c, _id, _a);
+        _id -= 6;
+    }
     return _id;
 }
 QT_END_MOC_NAMESPACE
