@@ -1,0 +1,16 @@
+/* Fibonacci number */
+
+{
+    x = getd();
+    a = 1;
+    b = 1;
+    k = 2;
+    while (k < x) {
+        w = a+b;
+        b = a;
+        a = w;
+        k = k+1;
+    }
+    putd(a, 1);
+    newline();
+}

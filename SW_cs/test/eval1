@@ -1,0 +1,37 @@
+/* test of operator evaluation */
+
+{
+  /* arithmetic operations */
+    if ((5*30)     != 150) putchar(120); else putchar(111);
+    if ((-7*-9)    !=  63) putchar(120); else putchar(111);
+    if ((100/3)    !=  33) putchar(120); else putchar(111);
+    if ((79/11)    !=   7) putchar(120); else putchar(111);
+    if ((200%7)    !=   4) putchar(120); else putchar(111);
+    if ((49%7)     !=   0) putchar(120); else putchar(111);
+    if ((10+7)     !=  17) putchar(120); else putchar(111);
+    if ((5+8)      !=  13) putchar(120); else putchar(111);
+    if ((100-20)   !=  80) putchar(120); else putchar(111);
+    if ((29-40)    != -11) putchar(120); else putchar(111);
+  /* comparison operations */
+    if ((-10<10)   !=   1) putchar(120); else putchar(111);
+    if ((10<-10)   !=   0) putchar(120); else putchar(111);
+    if ((10>-10)   !=   1) putchar(120); else putchar(111);
+    if ((-10>10)   !=   0) putchar(120); else putchar(111);
+    if ((10>=10)   !=   1) putchar(120); else putchar(111);
+    if ((5>=6)     !=   0) putchar(120); else putchar(111);
+    if ((20<=10)   !=   0) putchar(120); else putchar(111);
+    if ((-20<=-10) !=   1) putchar(120); else putchar(111);
+    if ((10==10)   !=   1) putchar(120); else putchar(111);
+    if ((1==0)     !=   0) putchar(120); else putchar(111);
+    if ((10!=10)   !=   0) putchar(120); else putchar(111);
+    if ((1!=0)     !=   1) putchar(120); else putchar(111);
+  /* bit-wise logical operations */
+    if ((26&11)    !=  10) putchar(120); else putchar(111);
+    if ((75&39)    !=   3) putchar(120); else putchar(111);
+    if ((26|11)    !=  27) putchar(120); else putchar(111);
+    if ((75|39)    != 111) putchar(120); else putchar(111);
+  /* unary operations */
+    if ((-5)       != 0-5) putchar(120); else putchar(111);
+    if ((- -10)    !=  10) putchar(120); else putchar(111);
+    newline();
+}

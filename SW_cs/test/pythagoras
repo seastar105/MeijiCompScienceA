@@ -1,0 +1,25 @@
+/* pythagoras number --- x^2 + y^2 = z^2 where x, y, z are in [1, 1000] */
+
+{
+    count = 0;
+    x = 1;
+    while (x <= 1000) {
+        z = x;
+        y = 1;
+        while (y <= 1000) {
+            if (z*z < x*x+y*y)
+                z = z+1;
+            if (z <= 1000 && x*x+y*y == z*z) {
+                count = count+1;
+                putd(count, 4);
+                putchar(58);
+                putd(x, 5);
+                putd(y, 6);
+                putd(z, 6);
+                newline();
+            }
+            y = y+1;
+        }
+        x = x+1;
+    }
+}

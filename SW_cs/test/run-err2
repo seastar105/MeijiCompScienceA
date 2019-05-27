@@ -1,0 +1,5 @@
+/* modulus by zero */
+
+{
+    10%0;
+}

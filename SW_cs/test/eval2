@@ -1,0 +1,19 @@
+/* test of operator precedence */
+
+{
+    x = 100;
+    y = 35;
+    z = 10;
+  /* different level */
+    if ((10*20+30)  !=  230) putchar(120); else putchar(111);
+    if ((10+20*30)  !=  610) putchar(120); else putchar(111);
+    if ((20*-10-50) != -250) putchar(120); else putchar(111);
+    if ((10&3+5)    !=    8) putchar(120); else putchar(111);
+    if ((1|2-1)     !=    1) putchar(120); else putchar(111);
+  /* same level */
+    if ((1+2+3)     !=    6) putchar(120); else putchar(111);
+    if ((10-7-2)    !=    1) putchar(120); else putchar(111);
+    if ((x-y-z)     !=   55) putchar(120); else putchar(111);
+    if ((10+20-5)   !=   25) putchar(120); else putchar(111);
+    newline();
+}

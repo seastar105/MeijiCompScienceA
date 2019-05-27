@@ -1,0 +1,7 @@
+/* unrecognized character, non-terminated comment */
+
+{
+    a[0] = 0;          /* "[" and "]" not allowed in C0 */
+}
+
+/* comment, not-terminated

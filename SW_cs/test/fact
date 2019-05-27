@@ -1,0 +1,17 @@
+/* Factorial */
+
+{
+    i = 0;
+    while (i <= 12) {
+        putd(i, 3);
+        x = 1;
+        k = i;
+        while (k > 1) {
+            x = x*k;
+            k = k-1;
+        }
+        putd(x, 12);
+        newline();
+        i = i+1;
+    }
+}

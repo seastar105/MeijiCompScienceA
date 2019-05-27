@@ -1,0 +1,12 @@
+/* character table (ASCII printable characters) */
+
+{
+    i = 32;
+    while (i < 127) {
+        putchar(i);
+        i = i+1;
+        if (i%32 == 0)
+            newline();
+    }
+    newline();
+}

@@ -1,0 +1,23 @@
+identifier
+12345
+else if while,;{}()=
+|||&&&
+== != <= < >= >
++-*/%
+
+/* no_good */      ok1
+/*/  no_good */    ok2
+/**/               ok3
+/***/              ok4
+/****/             ok5
+/*  / no_good */   ok6
+
+/* comment over
+   multiple lines */
+
+123abc0            /* 123 and abc0 */
+2147483647
+2147483648         /* too large integer, need not be an error */
+2147483650
+9999999999
+100000000000000000000000000000000000000000000000

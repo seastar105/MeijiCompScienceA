@@ -1,0 +1,12 @@
+/* Number of 1-bits in an integer */
+
+{
+    x = getd();
+    k = 0;
+    while (x != 0) {
+        k = k+1;
+        x = x&(x-1);
+    }
+    putd(k, 3);
+    newline();
+}

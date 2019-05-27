@@ -1,0 +1,628 @@
+/* value of e, multi-precision up to 160 digits */
+
+{
+    base = 100000;
+    i = 0;
+    while (i < 32) {
+        /* a[i] = 0; */
+        /* b[i] = 0; */
+        if (i < 16)
+            if (i < 8)
+                if (i < 4)
+                    if (i < 2)
+                        if (i < 1)
+                            { a00 = 0; b00 = 0; }
+                        else
+                            { a01 = 0; b01 = 0; }
+                    else
+                        if (i < 3)
+                            { a02 = 0; b02 = 0; }
+                        else
+                            { a03 = 0; b03 = 0; }
+                else
+                    if (i < 6)
+                        if (i < 5)
+                            { a04 = 0; b04 = 0; }
+                        else
+                            { a05 = 0; b05 = 0; }
+                    else
+                        if (i < 7)
+                            { a06 = 0; b06 = 0; }
+                        else
+                            { a07 = 0; b07 = 0; }
+            else
+                if (i < 12)
+                    if (i < 10)
+                        if (i < 9)
+                            { a08 = 0; b08 = 0; }
+                        else
+                            { a09 = 0; b09 = 0; }
+                    else
+                        if (i < 11)
+                            { a10 = 0; b10 = 0; }
+                        else
+                            { a11 = 0; b11 = 0; }
+                else
+                    if (i < 14)
+                        if (i < 13)
+                            { a12 = 0; b12 = 0; }
+                        else
+                            { a13 = 0; b13 = 0; }
+                    else
+                        if (i < 15)
+                            { a14 = 0; b14 = 0; }
+                        else
+                            { a15 = 0; b15 = 0; }
+        else
+            if (i < 24)
+                if (i < 20)
+                    if (i < 18)
+                        if (i < 17)
+                            { a16 = 0; b16 = 0; }
+                        else
+                            { a17 = 0; b17 = 0; }
+                    else
+                        if (i < 19)
+                            { a18 = 0; b18 = 0; }
+                        else
+                            { a19 = 0; b19 = 0; }
+                else
+                    if (i < 22)
+                        if (i < 21)
+                            { a20 = 0; b20 = 0; }
+                        else
+                            { a21 = 0; b21 = 0; }
+                    else
+                        if (i < 23)
+                            { a22 = 0; b22 = 0; }
+                        else
+                            { a23 = 0; b23 = 0; }
+            else
+                if (i < 28)
+                    if (i < 26)
+                        if (i < 25)
+                            { a24 = 0; b24 = 0; }
+                        else
+                            { a25 = 0; b25 = 0; }
+                    else
+                        if (i < 27)
+                            { a26 = 0; b26 = 0; }
+                        else
+                            { a27 = 0; b27 = 0; }
+                else
+                    if (i < 30)
+                        if (i < 29)
+                            { a28 = 0; b28 = 0; }
+                        else
+                            { a29 = 0; b29 = 0; }
+                    else
+                        if (i < 31)
+                            { a30 = 0; b30 = 0; }
+                        else
+                            { a31 = 0; b31 = 0; }
+        i = i+1;
+    }
+    /* a[0] = base/2; */
+    a00 = base/2;
+    /* b[0] = base/2; */
+    b00 = base/2;
+    top = 0;
+    n = 3;
+    while (top < 32) {
+        rem = 0;
+        i = top;
+        while (i < 32) {
+            /* x = base*rem+a[i]; */
+            /* a[i] = x/n; */
+            if (i < 16)
+                if (i < 8)
+                    if (i < 4)
+                        if (i < 2)
+                            if (i < 1)
+                                { x = base*rem+a00; a00 = x/n; }
+                            else
+                                { x = base*rem+a01; a01 = x/n; }
+                        else
+                            if (i < 3)
+                                { x = base*rem+a02; a02 = x/n; }
+                            else
+                                { x = base*rem+a03; a03 = x/n; }
+                    else
+                        if (i < 6)
+                            if (i < 5)
+                                { x = base*rem+a04; a04 = x/n; }
+                            else
+                                { x = base*rem+a05; a05 = x/n; }
+                        else
+                            if (i < 7)
+                                { x = base*rem+a06; a06 = x/n; }
+                            else
+                                { x = base*rem+a07; a07 = x/n; }
+                else
+                    if (i < 12)
+                        if (i < 10)
+                            if (i < 9)
+                                { x = base*rem+a08; a08 = x/n; }
+                            else
+                                { x = base*rem+a09; a09 = x/n; }
+                        else
+                            if (i < 11)
+                                { x = base*rem+a10; a10 = x/n; }
+                            else
+                                { x = base*rem+a11; a11 = x/n; }
+                    else
+                        if (i < 14)
+                            if (i < 13)
+                                { x = base*rem+a12; a12 = x/n; }
+                            else
+                                { x = base*rem+a13; a13 = x/n; }
+                        else
+                            if (i < 15)
+                                { x = base*rem+a14; a14 = x/n; }
+                            else
+                                { x = base*rem+a15; a15 = x/n; }
+            else
+                if (i < 24)
+                    if (i < 20)
+                        if (i < 18)
+                            if (i < 17)
+                                { x = base*rem+a16; a16 = x/n; }
+                            else
+                                { x = base*rem+a17; a17 = x/n; }
+                        else
+                            if (i < 19)
+                                { x = base*rem+a18; a18 = x/n; }
+                            else
+                                { x = base*rem+a19; a19 = x/n; }
+                    else
+                        if (i < 22)
+                            if (i < 21)
+                                { x = base*rem+a20; a20 = x/n; }
+                            else
+                                { x = base*rem+a21; a21 = x/n; }
+                        else
+                            if (i < 23)
+                                { x = base*rem+a22; a22 = x/n; }
+                            else
+                                { x = base*rem+a23; a23 = x/n; }
+                else
+                    if (i < 28)
+                        if (i < 26)
+                            if (i < 25)
+                                { x = base*rem+a24; a24 = x/n; }
+                            else
+                                { x = base*rem+a25; a25 = x/n; }
+                        else
+                            if (i < 27)
+                                { x = base*rem+a26; a26 = x/n; }
+                            else
+                                { x = base*rem+a27; a27 = x/n; }
+                    else
+                        if (i < 30)
+                            if (i < 29)
+                                { x = base*rem+a28; a28 = x/n; }
+                            else
+                                { x = base*rem+a29; a29 = x/n; }
+                        else
+                            if (i < 31)
+                                { x = base*rem+a30; a30 = x/n; }
+                            else
+                                { x = base*rem+a31; a31 = x/n; }
+            rem = x%n;
+            i = i+1;
+        }
+        n = n+1;
+        i = top;
+        while (i < 32) {
+            /* b[i] = a[i]+b[i]; */
+            if (i < 16)
+                if (i < 8)
+                    if (i < 4)
+                        if (i < 2)
+                            if (i < 1)
+                                b00 = a00+b00;
+                            else
+                                b01 = a01+b01;
+                        else
+                            if (i < 3)
+                                b02 = a02+b02;
+                            else
+                                b03 = a03+b03;
+                    else
+                        if (i < 6)
+                            if (i < 5)
+                                b04 = a04+b04;
+                            else
+                                b05 = a05+b05;
+                        else
+                            if (i < 7)
+                                b06 = a06+b06;
+                            else
+                                b07 = a07+b07;
+                else
+                    if (i < 12)
+                        if (i < 10)
+                            if (i < 9)
+                                b08 = a08+b08;
+                            else
+                                b09 = a09+b09;
+                        else
+                            if (i < 11)
+                                b10 = a10+b10;
+                            else
+                                b11 = a11+b11;
+                    else
+                        if (i < 14)
+                            if (i < 13)
+                                b12 = a12+b12;
+                            else
+                                b13 = a13+b13;
+                        else
+                            if (i < 15)
+                                b14 = a14+b14;
+                            else
+                                b15 = a15+b15;
+            else
+                if (i < 24)
+                    if (i < 20)
+                        if (i < 18)
+                            if (i < 17)
+                                b16 = a16+b16;
+                            else
+                                b17 = a17+b17;
+                        else
+                            if (i < 19)
+                                b18 = a18+b18;
+                            else
+                                b19 = a19+b19;
+                    else
+                        if (i < 22)
+                            if (i < 21)
+                                b20 = a20+b20;
+                            else
+                                b21 = a21+b21;
+                        else
+                            if (i < 23)
+                                b22 = a22+b22;
+                            else
+                                b23 = a23+b23;
+                else
+                    if (i < 28)
+                        if (i < 26)
+                            if (i < 25)
+                                b24 = a24+b24;
+                            else
+                                b25 = a25+b25;
+                        else
+                            if (i < 27)
+                                b26 = a26+b26;
+                            else
+                                b27 = a27+b27;
+                    else
+                        if (i < 30)
+                            if (i < 29)
+                                b28 = a28+b28;
+                            else
+                                b29 = a29+b29;
+                        else
+                            if (i < 31)
+                                b30 = a30+b30;
+                            else
+                                b31 = a31+b31;
+            i = i+1;
+        }
+        /* if (a[top] == 0) */
+        if (i < 16)
+            if (i < 8)
+                if (i < 4)
+                    if (i < 2)
+                        if (i < 1)
+                            test = a00;
+                        else
+                            test = a01;
+                    else
+                        if (i < 3)
+                            test = a02;
+                        else
+                            test = a03;
+                else
+                    if (i < 6)
+                        if (i < 5)
+                            test = a04;
+                        else
+                            test = a05;
+                    else
+                        if (i < 7)
+                            test = a06;
+                        else
+                            test = a07;
+            else
+                if (i < 12)
+                    if (i < 10)
+                        if (i < 9)
+                            test = a08;
+                        else
+                            test = a09;
+                    else
+                        if (i < 11)
+                            test = a10;
+                        else
+                            test = a11;
+                else
+                    if (i < 14)
+                        if (i < 13)
+                            test = a12;
+                        else
+                            test = a13;
+                    else
+                        if (i < 15)
+                            test = a14;
+                        else
+                            test = a15;
+        else
+            if (i < 24)
+                if (i < 20)
+                    if (i < 18)
+                        if (i < 17)
+                            test = a16;
+                        else
+                            test = a17;
+                    else
+                        if (i < 19)
+                            test = a18;
+                        else
+                            test = a19;
+                else
+                    if (i < 22)
+                        if (i < 21)
+                            test = a20;
+                        else
+                            test = a21;
+                    else
+                        if (i < 23)
+                            test = a22;
+                        else
+                            test = a23;
+            else
+                if (i < 28)
+                    if (i < 26)
+                        if (i < 25)
+                            test = a24;
+                        else
+                            test = a25;
+                    else
+                        if (i < 27)
+                            test = a26;
+                        else
+                            test = a27;
+                else
+                    if (i < 30)
+                        if (i < 29)
+                            test = a28;
+                        else
+                            test = a29;
+                    else
+                        if (i < 31)
+                            test = a30;
+                        else
+                            test = a31;
+        if (test == 0)
+            top = top+1;
+    }
+    i = 32;
+    ovfl = 0;
+    while (i > 0) {
+        i = i-1;
+        /* x = b[i]+ovfl; */
+        /* b[i] = x%base; */
+        if (i < 16)
+            if (i < 8)
+                if (i < 4)
+                    if (i < 2)
+                        if (i < 1)
+                            { x = b00+ovfl; b00 = x%base; }
+                        else
+                            { x = b01+ovfl; b01 = x%base; }
+                    else
+                        if (i < 3)
+                            { x = b02+ovfl; b02 = x%base; }
+                        else
+                            { x = b03+ovfl; b03 = x%base; }
+                else
+                    if (i < 6)
+                        if (i < 5)
+                            { x = b04+ovfl; b04 = x%base; }
+                        else
+                            { x = b05+ovfl; b05 = x%base; }
+                    else
+                        if (i < 7)
+                            { x = b06+ovfl; b06 = x%base; }
+                        else
+                            { x = b07+ovfl; b07 = x%base; }
+            else
+                if (i < 12)
+                    if (i < 10)
+                        if (i < 9)
+                            { x = b08+ovfl; b08 = x%base; }
+                        else
+                            { x = b09+ovfl; b09 = x%base; }
+                    else
+                        if (i < 11)
+                            { x = b10+ovfl; b10 = x%base; }
+                        else
+                            { x = b11+ovfl; b11 = x%base; }
+                else
+                    if (i < 14)
+                        if (i < 13)
+                            { x = b12+ovfl; b12 = x%base; }
+                        else
+                            { x = b13+ovfl; b13 = x%base; }
+                    else
+                        if (i < 15)
+                            { x = b14+ovfl; b14 = x%base; }
+                        else
+                            { x = b15+ovfl; b15 = x%base; }
+        else
+            if (i < 24)
+                if (i < 20)
+                    if (i < 18)
+                        if (i < 17)
+                            { x = b16+ovfl; b16 = x%base; }
+                        else
+                            { x = b17+ovfl; b17 = x%base; }
+                    else
+                        if (i < 19)
+                            { x = b18+ovfl; b18 = x%base; }
+                        else
+                            { x = b19+ovfl; b19 = x%base; }
+                else
+                    if (i < 22)
+                        if (i < 21)
+                            { x = b20+ovfl; b20 = x%base; }
+                        else
+                            { x = b21+ovfl; b21 = x%base; }
+                    else
+                        if (i < 23)
+                            { x = b22+ovfl; b22 = x%base; }
+                        else
+                            { x = b23+ovfl; b23 = x%base; }
+            else
+                if (i < 28)
+                    if (i < 26)
+                        if (i < 25)
+                            { x = b24+ovfl; b24 = x%base; }
+                        else
+                            { x = b25+ovfl; b25 = x%base; }
+                    else
+                        if (i < 27)
+                            { x = b26+ovfl; b26 = x%base; }
+                        else
+                            { x = b27+ovfl; b27 = x%base; }
+                else
+                    if (i < 30)
+                        if (i < 29)
+                            { x = b28+ovfl; b28 = x%base; }
+                        else
+                            { x = b29+ovfl; b29 = x%base; }
+                    else
+                        if (i < 31)
+                            { x = b30+ovfl; b30 = x%base; }
+                        else
+                            { x = b31+ovfl; b31 = x%base; }
+        ovfl = x/base;
+    }
+    putchar(50);
+    putchar(46);
+    i = 0;
+    while (i < 32) {
+        w = base/10;
+        /* x = b[i]; */
+        if (i < 16)
+            if (i < 8)
+                if (i < 4)
+                    if (i < 2)
+                        if (i < 1)
+                            x = b00;
+                        else
+                            x = b01;
+                    else
+                        if (i < 3)
+                            x = b02;
+                        else
+                            x = b03;
+                else
+                    if (i < 6)
+                        if (i < 5)
+                            x = b04;
+                        else
+                            x = b05;
+                    else
+                        if (i < 7)
+                            x = b06;
+                        else
+                            x = b07;
+            else
+                if (i < 12)
+                    if (i < 10)
+                        if (i < 9)
+                            x = b08;
+                        else
+                            x = b09;
+                    else
+                        if (i < 11)
+                            x = b10;
+                        else
+                            x = b11;
+                else
+                    if (i < 14)
+                        if (i < 13)
+                            x = b12;
+                        else
+                            x = b13;
+                    else
+                        if (i < 15)
+                            x = b14;
+                        else
+                            x = b15;
+        else
+            if (i < 24)
+                if (i < 20)
+                    if (i < 18)
+                        if (i < 17)
+                            x = b16;
+                        else
+                            x = b17;
+                    else
+                        if (i < 19)
+                            x = b18;
+                        else
+                            x = b19;
+                else
+                    if (i < 22)
+                        if (i < 21)
+                            x = b20;
+                        else
+                            x = b21;
+                    else
+                        if (i < 23)
+                            x = b22;
+                        else
+                            x = b23;
+            else
+                if (i < 28)
+                    if (i < 26)
+                        if (i < 25)
+                            x = b24;
+                        else
+                            x = b25;
+                    else
+                        if (i < 27)
+                            x = b26;
+                        else
+                            x = b27;
+                else
+                    if (i < 30)
+                        if (i < 29)
+                            x = b28;
+                        else
+                            x = b29;
+                    else
+                        if (i < 31)
+                            x = b30;
+                        else
+                            x = b31;
+        while (w > 0) {
+            putchar(x/w+48);
+            x = x%w;
+            w = w/10;
+        }
+        putchar(32);
+        i = i+1;
+        if (i%10 == 0) {
+            putchar(10);
+            putchar(32);
+            putchar(32);
+        }
+    }
+    putchar(10);
+}

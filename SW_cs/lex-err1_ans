@@ -1,0 +1,12 @@
+sample C0 compiler-interpreter system (Ishihata)
+LEFT_BRACE
+IDENTIFIER a
+   4: invalid character
+LITERAL 0
+   4: invalid character
+EQUAL
+LITERAL 0
+SEMICOLON
+RIGHT_BRACE
+   7: comment not terminated
+END_PROGRAM

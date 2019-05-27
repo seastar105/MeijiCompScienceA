@@ -1,0 +1,22 @@
+{
+    1;
+    x;
+    x = y;
+    x = y = z;
+    a - b - c;
+    x + y - z + a;
+    3 + 5 * 7;
+    x - (y + z);
+    (2 + 4) * 6;
+    10 * -20;
+    newline();
+    putchar(x);
+    putd(10, 2 * x);
+    x = putd(a, b);
+    putd(putchar(x), getd());
+    x > 0 && y == 100;
+    -- x;
+    a || b && c | d & e;
+    a == b != c < d > e;
+    a <= b >= c / d % e;
+}

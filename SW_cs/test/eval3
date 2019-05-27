@@ -1,0 +1,33 @@
+/* test of short-circuit evaluation */
+
+{
+    if (3 && 3) putchar(111); else putchar(120);
+    if (3 && 0) putchar(120); else putchar(111);
+    if (0 && putchar(88)) putchar(120); else putchar(111);
+    if (3 || putchar(88)) putchar(111); else putchar(120);
+    if (0 || 3) putchar(111); else putchar(120);
+    if (0 || 0) putchar(120); else putchar(111);
+    if (3 && 3 && 3) putchar(111); else putchar(120);
+    if (3 && 3 && 0) putchar(120); else putchar(111);
+    if (3 && 0 && putchar(88)) putchar(120); else putchar(111);
+    if (0 && putchar(88) && putchar(88)) putchar(120); else putchar(111);
+    if (3 || putchar(88) || putchar(88)) putchar(111); else putchar(120);
+    if (0 || 3 || putchar(88)) putchar(111); else putchar(120);
+    if (0 || 0 || 3) putchar(111); else putchar(120);
+    if (0 || 0 || 0) putchar(120); else putchar(111);
+    if (3 && 3 || putchar(88) && putchar(88)) putchar(111); else putchar(120);
+    if (3 && 0 || 3 && 3) putchar(111); else putchar(120);
+    if (3 && 0 || 3 && 0) putchar(120); else putchar(111);
+    if (3 && 0 || 0 && putchar(88)) putchar(120); else putchar(111);
+    if (0 && putchar(88) || 3 && 3) putchar(111); else putchar(120);
+    if (0 && putchar(88) || 3 && 0) putchar(120); else putchar(111);
+    if (0 && putchar(88) || 0 && putchar(88)) putchar(120); else putchar(111);
+    if ((3 || putchar(88)) && (3 || putchar(88))) putchar(111); else putchar(120);
+    if ((3 || putchar(88)) && (0 || 3)) putchar(111); else putchar(120);
+    if ((3 || putchar(88)) && (0 || 0)) putchar(120); else putchar(111);
+    if ((0 || 3) && (3 || putchar(88))) putchar(111); else putchar(120);
+    if ((0 || 3) && (0 || 3)) putchar(111); else putchar(120);
+    if ((0 || 3) && (0 || 0)) putchar(120); else putchar(111);
+    if ((0 || 0) && (putchar(88) || putchar(88))) putchar(120); else putchar(111);
+    newline();
+}

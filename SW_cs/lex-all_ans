@@ -1,0 +1,46 @@
+sample C0 compiler-interpreter system (Ishihata)
+IDENTIFIER identifier
+LITERAL 12345
+ELSE
+IF
+WHILE
+COMMA
+SEMICOLON
+LEFT_BRACE
+RIGHT_BRACE
+LEFT_PAREN
+RIGHT_PAREN
+EQUAL
+OROR
+OR
+ANDAND
+AND
+EQEQ
+NOTEQ
+LE
+LT
+GE
+GT
+PLUS
+MINUS
+STAR
+SLASH
+PERCENT
+IDENTIFIER ok1
+IDENTIFIER ok2
+IDENTIFIER ok3
+IDENTIFIER ok4
+IDENTIFIER ok5
+IDENTIFIER ok6
+LITERAL 123
+IDENTIFIER abc0
+LITERAL 2147483647
+  20: too large integer literal
+LITERAL 0
+  21: too large integer literal
+LITERAL 0
+  22: too large integer literal
+LITERAL 0
+  23: too large integer literal
+LITERAL 0
+END_PROGRAM

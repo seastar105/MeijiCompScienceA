@@ -1,0 +1,28 @@
+/* Pascal's triangle */
+
+{
+    a = 0;
+    while (a < 10) {
+        putd(a, 2);
+        sp = 0;
+        while (sp < 2*(10-a)) {
+            putchar(32);
+            sp = sp+1;
+        }
+        b = 0;
+        while (b <= a) {
+            c = 1;
+            j = 1;
+            x = a-b+1;
+            while (j <= b) {
+                c = c*x/j;
+                j = j+1;
+                x = x+1;
+            }
+            putd(c, 4);
+            b = b+1;
+        }
+        newline();
+        a = a+1;
+    }
+}

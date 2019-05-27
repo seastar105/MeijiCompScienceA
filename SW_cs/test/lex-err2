@@ -1,0 +1,9 @@
+/* errors in lexical analyzer */
+
+{
+    x = 089;       /* strange but not an error, 089 is not octal but decimal */
+
+    !x;            /* exclamation not followed by equal */
+
+    ~x;            /* tilde operator is not in C0 */
+}

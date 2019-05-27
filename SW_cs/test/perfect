@@ -1,0 +1,22 @@
+/* perfect number */
+
+{
+    x = 1;
+    while (x < 1000) {
+        s = 0;
+        j = 1;
+        while (j*j <= x) {
+            if (x%j == 0) {
+                s = s+j;
+                if (x/j != j)
+                    s = s+x/j;
+            }
+            j = j+1;
+        }
+        if (s == 2*x) {
+            putd(x, 10);
+            newline();
+        }
+        x = x+1;
+    }
+}

@@ -237,7 +237,7 @@ public class Week1 {
 	static void error(String s) {
 		System.out.println(String.format("%4d",line_number) + ": "+s);
 	}
-	public static void Main(String args[]) throws Exception {
+	public static void main(String args[]) throws Exception {
 		line_number = 1;
 		ch = ' ';
 		if(args.length == 1) {

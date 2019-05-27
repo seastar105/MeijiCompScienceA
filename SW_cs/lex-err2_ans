@@ -1,0 +1,14 @@
+sample C0 compiler-interpreter system (Ishihata)
+LEFT_BRACE
+IDENTIFIER x
+EQUAL
+LITERAL 89
+SEMICOLON
+   6: exclamation mark not followed by equal
+IDENTIFIER x
+SEMICOLON
+   8: invalid character
+IDENTIFIER x
+SEMICOLON
+RIGHT_BRACE
+END_PROGRAM
