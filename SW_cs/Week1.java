@@ -101,7 +101,6 @@ public class Week1 {
 			}
 			// TODO : Need handle error(exclamation mark not followed by equal
 			error("exclamation mark not followed by equal");
-			next_ch();
 			sy = token.ERROR;
 			return ;
 		}
@@ -164,16 +163,21 @@ public class Week1 {
 			// TODO : need to skip comments 
 			// if comment does not terminate, display error message and terminate program. 
 			// NOTICE: There's no one line comment
+			next_ch();
 			while(ch != 65535) {
-				next_ch();
 				if(ch == '*') {
+					next_ch();
 					if (ch == '/') { 		// comment terminated
 						next_ch();
 						get_token();
 						return ;
 					}
 				}
+				else {
+					next_ch();
+				}
 			}
+			line_number--;
 			error("comment not terminated");
 			sy = token.END_PROGRAM;
 			return ;
@@ -184,11 +188,11 @@ public class Week1 {
 			boolean flag = false;
 			while(Character.isDigit(ch)) {
 				v = v * 10 + (long)(ch - '0');
-				next_ch();
 				if(v > Integer.MAX_VALUE) {
 					flag = true;
 					break;
 				}
+				next_ch();
 			}
 			if(flag) {
 				// TODO : Overflow occured, need to handle. read all following digits
@@ -196,7 +200,8 @@ public class Week1 {
 				while(Character.isDigit(ch)) {
 					next_ch();
 				}
-				sy = token.ERROR;
+				sy = token.LITERAL;
+				literal_value = 0;
 				return ;
 			}
 			literal_value = (int) v;
@@ -229,7 +234,7 @@ public class Week1 {
 		else {
 			// TODO : display errormessage
 			next_ch();
-			error("inavlid character");
+			error("invalid character");
 			sy = token.ERROR;
 			return ;
 		}

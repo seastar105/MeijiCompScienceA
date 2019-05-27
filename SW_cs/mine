@@ -4,7 +4,6 @@ EQUAL
 LITERAL 89
 SEMICOLON
    6: exclamation mark not followed by equal
-IDENTIFIER x
 SEMICOLON
    8: invalid character
 IDENTIFIER x

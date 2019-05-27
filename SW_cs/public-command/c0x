@@ -1,4 +1,4 @@
 #!/bin/bash
-CLASSPATH=/home/Work/MeijiCompScienceA/SW_cs/c0-class
+CLASSPATH=/home/seastar105/Work/MeijiCompScienceA/SW_cs/c0-class
 export CLASSPATH
 java C0x $*
