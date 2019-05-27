@@ -1,4 +1,4 @@
-#!/usr/bin/zsh
-CLASSPATH=/home/ishihata/c0-class
+#!/bin/bash
+CLASSPATH=/home/Work/MeijiCompScienceA/SW_cs/c0-class
 export CLASSPATH
 java C0x $*
