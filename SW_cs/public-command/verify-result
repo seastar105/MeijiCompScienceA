@@ -1,0 +1,2 @@
+#!/usr/bin/zsh
+diff /home/ishihata/semi/result-$1.txt text-$1.txt

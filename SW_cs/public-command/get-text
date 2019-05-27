@@ -1,0 +1,10 @@
+#!/usr/bin/zsh
+if [ "$1" = "3-4" ] || [ "$1" = "3-5" ] ; then
+  cp /home/ishihata/semi/text-$1[ab].txt .
+  cp /home/ishihata/semi/text-$1[a].txt original-$1\a.txt
+  cp /home/ishihata/semi/text-$1[b].txt original-$1\b.txt
+  echo -n > text-$1.txt
+else
+  cp /home/ishihata/semi/text-$1.txt .
+  cp /home/ishihata/semi/text-$1.txt original-$1.txt
+fi

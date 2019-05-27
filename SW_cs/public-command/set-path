@@ -1,0 +1,12 @@
+#!/usr/bin/zsh
+if egrep -q "export PATH=.*:/home/ishihata/public-command:" ~/.zshrc; then
+  echo "set-path has already been done."
+  echo "no more action needed."
+else
+  ed - ~/.zshrc << EOF
+/export PATH=/s/:\(.PATH\)/:\/home\/ishihata\/public-command:\1/
+w
+q
+EOF
+  echo "set-path is successfully executed"
+fi
