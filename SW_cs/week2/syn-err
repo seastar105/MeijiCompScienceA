@@ -1,0 +1,129 @@
+=== ../testcases/syn-err01 ===
+   2: unrecognized element in expression
+
+   2: semicolon expected
+=== ../testcases/syn-err02 ===
+x    2: unrecognized element in expression
++ 
+   2: semicolon expected
+=== ../testcases/syn-err03 ===
+x y + 
+   1: semicolon expected
+   2: extra text at the end of the program
+=== ../testcases/syn-err04 ===
+putd x 5    1: right parenthesis expected
+
+   1: semicolon expected
+   2: extra text at the end of the program
+=== ../testcases/syn-err05 ===
+putd x 5    2: right parenthesis expected
+
+=== ../testcases/syn-err06 ===
+putd x    1: unrecognized element in expression
+   2: right parenthesis expected
+
+=== ../testcases/syn-err07 ===
+putd    1: unrecognized element in expression
+   1: right parenthesis expected
+
+   1: semicolon expected
+   1: extra text at the end of the program
+=== ../testcases/syn-err08 ===
+x y +    1: right parenthesis expected
+
+   1: semicolon expected
+   2: extra text at the end of the program
+=== ../testcases/syn-err09 ===
+x y +    2: right parenthesis expected
+
+=== ../testcases/syn-err10 ===
+   2: unrecognized element in expression
+
+   2: semicolon expected
+   2: too few right braces at end of statement list
+   2: extra text at the end of the program
+=== ../testcases/syn-err11 ===
+   1: unrecognized element in expression
+
+=== ../testcases/syn-err12 ===
+   1: left parenthesis expected after if
+1 
+   1: semicolon expected
+empty statement
+=== ../testcases/syn-err13 ===
+if statement: 1    1: right parenthesis expected
+
+end if statement
+=== ../testcases/syn-err14 ===
+   1: unrecognized element in expression
+
+=== ../testcases/syn-err15 ===
+if statement: 1 
+0 
+   1: semicolon expected
+end if statement
+1 
+=== ../testcases/syn-err16 ===
+if statement: 1 
+1 
+end if statement
+2 
+   1: unrecognized element in expression
+
+   1: semicolon expected
+empty statement
+=== ../testcases/syn-err17 ===
+   1: left parenthesis expected after while
+1 
+   1: semicolon expected
+1 
+=== ../testcases/syn-err18 ===
+while statement: 1    1: right parenthesis expected
+
+0 
+end while statement
+=== ../testcases/syn-err19 ===
+if statement: 1 
+0 
+1 
+2 
+end if statement
+   2: too few right braces at end of statement list
+   2: extra text at the end of the program
+=== ../testcases/syn-err20 ===
+f    1: unrecognized element in expression
+   2: right parenthesis expected
+
+   2: semicolon expected
+   2: too few right braces at end of statement list
+   2: extra text at the end of the program
+=== ../testcases/syn-err21 ===
+f x    1: right parenthesis expected
+
+   1: semicolon expected
+   1: unrecognized element in expression
+
+=== ../testcases/syn-err22 ===
+x 1 = 
+   2: semicolon expected
+   2: too few right braces at end of statement list
+   2: extra text at the end of the program
+=== ../testcases/syn-err23 ===
+1 2 +    1: right parenthesis expected
+
+=== ../testcases/syn-err24 ===
+   1: left parenthesis expected after if
+1 
+=== ../testcases/syn-err25 ===
+   1: left parenthesis expected after while
+1 
+=== ../testcases/syn-err26 ===
+   2: unrecognized element in expression
+
+   2: semicolon expected
+   2: too few right braces at end of statement list
+   2: unrecognized element in expression
+
+   2: semicolon expected
+   2: too few right braces at end of statement list
+   2: extra text at the end of the program
