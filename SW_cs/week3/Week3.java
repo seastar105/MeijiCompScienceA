@@ -13,14 +13,55 @@ enum token {
 	PLUS, MINUS, STAR, SLASH, PERCENT, 
 	ERROR
 }
-public class Week2 {
+
+enum type { Variable, Function }
+
+enum operation{
+	LCONST, LOAD, STORE, POPUP,
+	CALL, JUMP, FJUMP, TJUMP, HALT,
+	MULT, DIV, MOD, ADD, SUB, ANDOP, OROP,
+	EQOP, NEOP, LEOP, LTOP, GEOP, GTOP
+}
+
+class code_type{
+	operation op_code;
+	int operand;
+}
+
+class id_record{
+	type id_class;
+	int address;
+	int function_id;
+	int parameter_count;
+
+	id_record(type t,int addr,int func_id,int param_count) {
+		this.id_class = t;
+		this.address = addr;
+		this.function_id = func_id;
+		this.parameter_count = param_count;
+	}
+	boolean isFunc() {
+		return id_class == type.Function;
+	}
+	boolean isVar() {
+		return id_class == type.Variable;
+	}
+}
+
+public class Week3 {
 	static token sy;
 	static BufferedReader source;
 	static int line_number;
 	static char ch;
 	static String id_string;
 	static int literal_value;
-	static final boolean debug_parse = true;
+	static final boolean debug_parse = false;
+	static Map<String, id_record> symbol_table;
+	static int variable_count;
+	static final int CODE_MAX = 5000;
+	static int pc = 0;
+	static code_type code[] = new code_type[CODE_MAX];
+	static boolean err_flag = false;
 	static void next_ch() {
 		try {
 			ch = (char)source.read();
@@ -241,11 +282,13 @@ public class Week2 {
 		}
 	}
 	static void error(String s) {
+		err_flag = true;
 		System.out.println(String.format("%4d",line_number) + ": "+s);
 	}
 	public static void main(String args[]) throws Exception {
 		line_number = 1;
 		ch = ' ';
+		init_symbol_table();
 		if(args.length == 1) {
 			source = new BufferedReader(new FileReader(new File(args[0])));
 		}
@@ -259,6 +302,9 @@ public class Week2 {
 		ch = ' ';
 		get_token();
 		statement();
+		if(!err_flag) {
+			print_code();
+		}
 //		expression();
 		if(sy != token.END_PROGRAM) {
 			error("extra text at the end of the program");
@@ -277,17 +323,25 @@ public class Week2 {
 	static void primary_expression() {
 		if( sy == token.LITERAL ) {
 			polish(literal_value+"");
+			emit(operation.LCONST, literal_value);
 			get_token();
 		}
 		else if( sy == token.IDENTIFIER ) {
 			polish(id_string);
+			String tmp = id_string;				// id_string can be modified by next get_token call
 			get_token();
+			id_record func;
 			// function call
 			int i = 0;
 			if( sy == token.LEFT_PAREN ) {
+				func = lookup_function(id_string);
 				get_token();
 				if( sy == token.RIGHT_PAREN ) {
 					polish("call-0");
+					if(func.parameter_count != 0) {
+						error(tmp + ": number of parameters mismatch");
+					}
+					emit(operation.CALL, func.function_id);
 					get_token();
 					return ;
 				}
@@ -300,10 +354,17 @@ public class Week2 {
 				}
 			}
 			else {
+				// identifiers is variable
+				id_record var = lookup_variable(tmp);
+				emit(operation.LOAD,var.address);
 				return ;
 			}
 			if( sy == token.RIGHT_PAREN ) {
 				polish("call-"+i);
+				if(func.parameter_count != i) {
+					error(tmp + ": number of parameters mismatch");
+				}
+				emit(operation.CALL,func.function_id);
 				get_token();
 			}
 			else {
@@ -328,8 +389,10 @@ public class Week2 {
 	static void unary_expression() {
 		if( sy == token.MINUS ) {
 			get_token();
+			emit(operation.LCONST, 0);
 			unary_expression();
 			polish("u-");
+			emit(operation.SUB, 0);
 		}
 		else {
 			primary_expression();
@@ -352,12 +415,15 @@ public class Week2 {
 			unary_expression();
 			if( flag == 0 ) {
 				polish("*");
+				emit(operation.MULT, 0);
 			}
 			else if( flag == 1 ) {
 				polish("/");
+				emit(operation.DIV, 0);
 			}
 			else if( flag == 2 ) {
 				polish("%");
+				emit(operation.MOD, 0);
 			}
 			else {
 				error("something wrong");
@@ -378,9 +444,11 @@ public class Week2 {
 			multiplicative_expression();
 			if( flag == 0 ) {
 				polish("+");
+				emit(operation.ADD, 0);
 			}
 			else if( flag == 1 ) {
 				polish("-");
+				emit(operation.SUB, 0);
 			}
 			else {
 				error("something wrong");
@@ -400,15 +468,19 @@ public class Week2 {
 			additive_expression();
 			if( flag == 0 ) {
 				polish("<=");
+				emit(operation.LEOP, 0);
 			}
 			else if( flag == 1 ) {
 				polish("<");
+				emit(operation.LTOP, 0);
 			}
 			else if( flag == 2 ) {
 				polish(">=");
+				emit(operation.GEOP, 0);
 			}
 			else if( flag == 3 ) {
 				polish(">");
+				emit(operation.GTOP, 0);
 			}
 			else {
 				error("something wrong");
@@ -425,9 +497,11 @@ public class Week2 {
 			relational_expression();
 			if( flag == 0 ) {
 				polish("==");
+				emit(operation.EQOP, 0);
 			}
 			else if ( flag == 1 ) {
 				polish("!=");
+				emit(operation.NEOP, 0);
 			}
 		}
 	}
@@ -437,6 +511,7 @@ public class Week2 {
 			get_token();
 			equality_expression();
 			polish("&");
+			emit(operation.ANDOP, 0);
 		}
 	}
 	static void bit_or_expression() {
@@ -445,30 +520,53 @@ public class Week2 {
 			get_token();
 			bit_and_expression();
 			polish("|");
+			emit(operation.OROP, 0);
 		}
 	}
 	static void logical_and_expression() {
 		bit_or_expression();
+		int prePC;
 		while( sy == token.ANDAND ) {
+			prePC = pc;
+			emit(operation.FJUMP, 0);
 			get_token();
 			bit_or_expression();
 			polish("&&");
+			emit(operation.FJUMP, pc + 3);
+			emit(operation.LCONST, 1);
+			emit(operation.JUMP, pc + 2);
+			emit(operation.LCONST, 0);
+			code[prePC].operand = pc - 1;
 		}
 	}
 	static void logical_or_expression() {
 		logical_and_expression();
+		int prePC;
 		while( sy == token.OROR ) {
+			prePC = pc;
+			emit(operation.TJUMP, 0);
 			get_token();
 			logical_and_expression();
 			polish("||");
+			emit(operation.TJUMP, pc + 3);
+			emit(operation.LCONST, 0);
+			emit(operation.JUMP, pc + 2);
+			emit(operation.LCONST, 1);
+			code[prePC].operand = pc - 1;
 		}
 	}
 	static void expression() {
 		logical_or_expression();
 		if( sy == token.EQUAL ) {
+			if(code[pc-1].op_code != operation.LOAD) {
+				error("assignment to non-variable");
+			}
+			pc--;
+			int op = code[pc].operand;
 			get_token();
 			expression();
 			polish("=");
+			emit(operation.STORE,op);
 		}
 	}
 	static void statement() {
@@ -488,7 +586,7 @@ public class Week2 {
 				}
 				if(blankflag) {
 					get_token();
-					System.out.println();
+					if(debug_parse) System.out.println();
 					statement();
 				}
 				else {
@@ -499,7 +597,7 @@ public class Week2 {
 					else {
 						error("right parenthesis expected");
 					}
-					System.out.println();
+					if(debug_parse) System.out.println();
 					statement();
 				}
 				if( sy == token.ELSE ) {
@@ -525,7 +623,7 @@ public class Week2 {
 				}
 				if(blankflag) {
 					get_token();
-					System.out.println();
+					if(debug_parse) System.out.println();
 					statement();
 				}
 				else {
@@ -536,7 +634,7 @@ public class Week2 {
 					else {
 						error("right parenthesis expected");
 					}
-					System.out.println();
+					if(debug_parse) System.out.println();
 					statement();
 				}
 				System.out.println("end while statement");
@@ -566,12 +664,67 @@ public class Week2 {
 		}
 		else {
 			expression();
-			System.out.println();
+			if(debug_parse) System.out.println();
 			if( sy != token.SEMICOLON ) {
 				error("semicolon expected");
 				return ;
 			}
 			get_token();
+		}
+	}	
+	// Week3 Start
+	static void init_symbol_table() {
+		symbol_table = new TreeMap<String, id_record>();
+		variable_count = 0;
+		id_record x = new id_record(type.Function,-1,0,0);
+		symbol_table.put("getd",x);
+		x = new id_record(type.Function,-1,1,2);
+		symbol_table.put("putd",x);
+		x = new id_record(type.Function,-1,2,0);
+		symbol_table.put("newline",x);
+		x = new id_record(type.Function,-1,3,1);
+		symbol_table.put("putchar",x);
+	}
+	static id_record search(String name) {
+		if(symbol_table.get(name) != null) {
+			return symbol_table.get(name);
+		}
+		else {
+			id_record x = new id_record(type.Variable, variable_count, -1, -1);
+			variable_count++;
+			symbol_table.put(name,x);
+			return x;
+		}
+	}
+	static id_record lookup_variable(String name) {
+		id_record x = search(name);
+		if(x.isFunc()) {
+			error(name + ": function is used as variable");
+		}
+		return x;
+	}
+	static id_record lookup_function(String name) {
+		id_record x = search(name);
+		if(x.isVar()) {
+			error(name + ": variable is used as function");
+		}
+		return x;
+	}
+	static void emit(operation op, int param) {
+		if(pc >= CODE_MAX) {
+			error("Code overflow");
+			System.exit(-1);
+		}
+		code[pc] = new code_type();
+		code[pc].op_code = op;
+		code[pc].operand = param;
+		pc++;
+	}
+	static void print_code() {
+		for (int i=0;i<pc;i++) {
+			System.out.println(String.format("%5d",i)+": "+
+							   String.format("%-6s",code[i].op_code) +
+							   String.format("%6d",code[i].operand));
 		}
 	}
 }

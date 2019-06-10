@@ -1,0 +1,27 @@
+=== ../testcases/sem-err1 ===
+sample C0 compiler-interpreter system (Ishihata)
+   1: getd: function is used as a variable
+=== ../testcases/sem-err2 ===
+sample C0 compiler-interpreter system (Ishihata)
+   1: f: variable is used as a function
+=== ../testcases/sem-err3 ===
+sample C0 compiler-interpreter system (Ishihata)
+   1: putd: number of parameters mismatch
+=== ../testcases/sem-err4 ===
+sample C0 compiler-interpreter system (Ishihata)
+   1: putd: number of parameters mismatch
+=== ../testcases/sem-err5 ===
+sample C0 compiler-interpreter system (Ishihata)
+   1: putd: number of parameters mismatch
+=== ../testcases/sem-err6 ===
+sample C0 compiler-interpreter system (Ishihata)
+   1: getd: number of parameters mismatch
+=== ../testcases/sem-err7 ===
+sample C0 compiler-interpreter system (Ishihata)
+   1: putchar: number of parameters mismatch
+=== ../testcases/sem-err8 ===
+sample C0 compiler-interpreter system (Ishihata)
+   1: putchar: number of parameters mismatch
+=== ../testcases/sem-err9 ===
+sample C0 compiler-interpreter system (Ishihata)
+   1: assignment to non-variable

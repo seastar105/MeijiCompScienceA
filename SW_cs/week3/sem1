@@ -1,0 +1,19 @@
+=== ../testcases/sem-err1 ===
+   1: getd: function is used as variable
+=== ../testcases/sem-err2 ===
+   1: f: variable is used as function
+   1: f: number of parameters mismatch
+=== ../testcases/sem-err3 ===
+   1: putd: number of parameters mismatch
+=== ../testcases/sem-err4 ===
+   1: putd: number of parameters mismatch
+=== ../testcases/sem-err5 ===
+   1: putd: number of parameters mismatch
+=== ../testcases/sem-err6 ===
+   1: getd: number of parameters mismatch
+=== ../testcases/sem-err7 ===
+   1: putchar: number of parameters mismatch
+=== ../testcases/sem-err8 ===
+   1: putchar: number of parameters mismatch
+=== ../testcases/sem-err9 ===
+   1: assignment to non-variable
