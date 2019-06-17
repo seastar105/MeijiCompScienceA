@@ -62,6 +62,11 @@ public class Week4 {
 	static int pc = 0;
 	static code_type code[] = new code_type[CODE_MAX];
 	static boolean err_flag = false;
+	static final int Stack_Size = 100;
+	static int memory_size;
+	static int sp, ic;
+	static int memory[];
+	static boolean trace_flag=false;;
 	static void next_ch() {
 		try {
 			ch = (char)source.read();
@@ -298,13 +303,18 @@ public class Week4 {
 				error("multiple source file is not supported");
 			}
 		}
+		String tr_str = "-t";
+		if(args.length > 1 && tr_str.equals(args[1])) trace_flag = true;
 		line_number = 1;
 		ch = ' ';
 		get_token();
 		statement();
 		emit(operation.HALT,0);
 		if(!err_flag) {
-			print_code();
+//			print_code();
+			memory_size = variable_count + Stack_Size;
+			memory = new int [memory_size];
+			interpret(trace_flag);
 		}
 //		expression();
 		if(sy != token.END_PROGRAM) {
@@ -746,6 +756,188 @@ public class Week4 {
 			System.out.println(String.format("%5d",i)+": "+
 							   String.format("%-6s",code[i].op_code) +
 							   String.format("%6d",code[i].operand));
+		}
+	}
+	// week4 
+	static void run_error(String s) {
+		System.out.println(s);
+		System.exit(1);
+	}
+	static void push(int x) {
+		if(sp >= memory_size)
+			run_error("stack overflow");
+		memory[sp] = x;
+		sp++;
+	}
+	static int pop() {
+		if(sp <= variable_count)
+			run_error("system error: stack underflow");
+		sp--;
+		return (memory[sp]);
+	}
+	static void interpret(boolean trace) {
+		operation instruction;
+		int argument;
+		int left, right, tmp;
+		Scanner sc = new Scanner(System.in);
+		ic = 0;
+		sp = variable_count;
+		while(true) {
+			instruction = code[ic].op_code;
+			argument = code[ic].operand;
+			if(trace) {
+				System.out.print("ic="+String.format("%4d",ic)+
+						", sp="+String.format("%5d",sp)+
+						", code=("+
+						String.format("%-6s", instruction) +
+						String.format("%6d", argument)+")");
+				if(sp > variable_count) {
+					int val = pop();
+					push(val);
+					System.out.print(", top="+String.format("%10d",val));
+				}
+				System.out.println();
+			}
+			ic++;
+			switch(instruction) {
+				case CALL:
+					if(argument == 0) {	// getd
+						System.out.print("getd: ");
+						push(sc.nextInt());
+					}
+					else if(argument == 1) {	// putd
+						int width = pop();
+						int val = pop();
+						String s = String.format("%d",val);
+						int d = width-s.length();
+						while(d>0) {
+							System.out.print(" ");
+							d--;
+						}
+						System.out.print(s);
+						push(val);
+					}
+					else if(argument == 2) {	// newline
+						System.out.println();
+						push(0);
+					}
+					else if(argument == 3) {	// putchar
+						int val = pop();
+						char c = (char) val;
+						System.out.print(c);
+						push(val);
+					}
+					else {
+						run_error("Undefined Function!");
+					}
+					break;
+				case LCONST:
+					push(argument);
+					break;
+				case LOAD:
+					if(argument >= variable_count || argument < 0) run_error("Undefined Variable");
+					push(memory[argument]);
+					break;
+				case STORE:
+					if(argument >= variable_count || argument < 0) run_error("Undefined Variable");
+					tmp = pop();
+					memory[argument] = tmp;
+					push(tmp);
+					break;
+				case POPUP:
+					pop();
+					break;
+				case JUMP:
+					ic = argument;
+					break;
+				case FJUMP:
+					tmp = pop();
+					if(tmp == 0) ic = argument;
+					break;
+				case TJUMP:
+					tmp = pop();
+					if(tmp != 0) ic = argument;
+					break;
+				case HALT:
+					if( sp != variable_count ) run_error("Stack Corrupted");
+					return ;
+				case MULT:
+					right = pop();
+					left = pop();
+					push(left * right);
+					break;
+				case ADD:
+					right = pop();
+					left = pop();
+					push(left + right);
+					break;
+				case SUB:
+					right = pop();
+					left = pop();
+					push(left - right);
+					break;
+				case ANDOP:
+					right = pop();
+					left = pop();
+					push(left & right);
+					break;
+				case OROP:
+					right = pop();
+					left = pop();
+					push(left | right);
+					break;
+				case DIV:
+					right = pop();
+					left = pop();
+					if(right == 0) run_error("Division by 0");
+					push(left / right);
+					break;
+				case MOD:
+					right = pop();
+					left = pop();
+					if(right == 0) run_error("Modulus by 0");
+					push(left % right);
+					break;
+				case EQOP:
+					right = pop();
+					left = pop();
+					if(left == right) push(1);
+					else push(0);
+					break;
+				case NEOP:
+					right = pop();
+					left = pop();
+					if(left != right) push(1);
+					else push(0);
+					break;
+				case LEOP:
+					right = pop();
+					left = pop();
+					if(left <= right) push(1);
+					else push(0);
+					break;
+				case LTOP:
+					right = pop();
+					left = pop();
+					if(left < right) push(1);
+					else push(0);
+					break;
+				case GEOP:
+					right = pop();
+					left = pop();
+					if(left >= right) push(1);
+					else push(0);
+					break;
+				case GTOP:
+					right = pop();
+					left = pop();
+					if(left > right) push(1);
+					else push(0);
+					break;
+				default:
+					run_error("system error: undefined op code");
+					break;
+			}
 		}
 	}
 }
